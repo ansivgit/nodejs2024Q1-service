@@ -11,8 +11,12 @@ export class AlbumService {
 
   create(createAlbumDto: CreateAlbumDto): Album {
     const entity = new Album({ id: v4(), ...createAlbumDto });
-    this.db.albums.push(entity);
 
+    if (!createAlbumDto.artistId) {
+      entity.artistId = null;
+    }
+
+    this.db.albums.push(entity);
     return entity;
   }
 

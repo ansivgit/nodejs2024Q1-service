@@ -23,7 +23,7 @@ export class Album {
   @IsString()
   @IsUUID()
   @IsOptional()
-  artistId?: string;
+  artistId?: string | null;
 
   constructor(album: Album) {
     Object.assign(this, album);
