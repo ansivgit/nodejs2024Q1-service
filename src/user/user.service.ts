@@ -5,10 +5,11 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { v4 } from 'uuid';
-import { DataBase } from 'src/db/db';
-import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { DataBase } from 'src/db/db';
+import { User } from './entities/user.entity';
+import { getOmitObj } from '../utils';
 
 @Injectable()
 export class UserService {
@@ -49,10 +50,11 @@ export class UserService {
   }
 
   findAll(): User[] | [] {
-    return this.db.users;
+    const omitUsers = this.db.users.map((user) => getOmitObj(user, 'password'));
+    return omitUsers;
   }
 
-  findOne(id: string): User {
+  findOne(id: string): Omit<User, 'password'> {
     const entity: User | undefined = this.db.users.find(
       (person) => person.id === id,
     );
@@ -61,11 +63,14 @@ export class UserService {
       throw new NotFoundException('Person not found');
     }
 
-    return entity;
+    const omitEntity: Omit<User, 'password'> = getOmitObj(entity, 'password');
+    return omitEntity;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): void {
-    const entity = this.findOne(id);
+  update(id: string, updateUserDto: UpdateUserDto): Omit<User, 'password'> {
+    const entity: User | undefined = this.db.users.find(
+      (person) => person.id === id,
+    );
     const { oldPassword, newPassword } = updateUserDto;
 
     if (entity.password !== oldPassword) {
@@ -73,7 +78,11 @@ export class UserService {
     }
 
     entity.password = newPassword;
-    console.log(`This action updates a #${id} user`);
+    entity.version += 1;
+    entity.updateAt = Date.now();
+
+    const omitEntity: Omit<User, 'password'> = getOmitObj(entity, 'password');
+    return omitEntity;
   }
 
   remove(id: string) {

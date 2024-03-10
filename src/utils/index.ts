@@ -1,3 +1,4 @@
 import { getSwaggerDoc } from './getSwaggerDoc';
+import { getOmitObj } from './getOmitObj';
 
-export { getSwaggerDoc };
+export { getSwaggerDoc, getOmitObj };

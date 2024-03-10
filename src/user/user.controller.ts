@@ -24,12 +24,12 @@ export class UserController {
   }
 
   @Get()
-  findAll(): User[] {
+  findAll(): Omit<User, 'password'>[] {
     return this.userService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string): User {
+  findOne(@Param('id', ParseUUIDPipe) id: string): Omit<User, 'password'> {
     return this.userService.findOne(id);
   }
 
@@ -37,7 +37,7 @@ export class UserController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
-  ): void {
+  ): Omit<User, 'password'> {
     return this.userService.update(id, updateUserDto);
   }
 
