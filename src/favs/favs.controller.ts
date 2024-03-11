@@ -24,6 +24,7 @@ export class FavsController {
   }
 
   @Post('album/:id')
+  @HttpCode(201)
   createAlbum(@Param('id', ParseUUIDPipe) id: string): Album {
     return this.favsService.createAlbum(id);
   }
@@ -35,6 +36,7 @@ export class FavsController {
   }
 
   @Post('artist/:id')
+  @HttpCode(201)
   createArtist(@Param('id', ParseUUIDPipe) id: string): Artist {
     return this.favsService.createArtist(id);
   }
@@ -46,6 +48,7 @@ export class FavsController {
   }
 
   @Post('track/:id')
+  @HttpCode(200)
   createTrack(@Param('id', ParseUUIDPipe) id: string): Track {
     return this.favsService.createTrack(id);
   }

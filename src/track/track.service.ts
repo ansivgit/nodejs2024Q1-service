@@ -12,11 +12,11 @@ export class TrackService {
   create(createTrackDto: CreateTrackDto): Track {
     const entity = new Track({ id: v4(), ...createTrackDto });
 
-    if (!createTrackDto.artistId) {
+    if (!createTrackDto?.artistId) {
       entity.artistId = null;
     }
 
-    if (!createTrackDto.albumId) {
+    if (!createTrackDto?.albumId) {
       entity.albumId = null;
     }
 

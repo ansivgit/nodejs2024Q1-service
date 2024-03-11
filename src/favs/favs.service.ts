@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  Inject,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 
 import { DataBase } from 'src/db/db';
 import { Album } from 'src/album/entities/album.entity';
@@ -46,7 +41,9 @@ export class FavsService {
   }
 
   createAlbum(id: string): Album {
-    const album: Album = this.db.albums.find((entity) => entity.id === id);
+    const album: Album | undefined = this.db.albums.find(
+      (entity) => entity.id === id,
+    );
 
     if (!album) {
       throw new UnprocessableEntityException("Item doesn't exist");
@@ -67,7 +64,9 @@ export class FavsService {
   }
 
   createArtist(id: string): Artist {
-    const artist: Artist = this.db.artists.find((entity) => entity.id === id);
+    const artist: Artist | undefined = this.db.artists.find(
+      (entity) => entity.id === id,
+    );
 
     if (!artist) {
       throw new UnprocessableEntityException("Item doesn't exist");
@@ -88,7 +87,9 @@ export class FavsService {
   }
 
   createTrack(id: string): Track {
-    const track: Track = this.db.tracks.find((entity) => entity.id === id);
+    const track: Track | undefined = this.db.tracks.find(
+      (entity) => entity.id === id,
+    );
 
     if (!track) {
       throw new UnprocessableEntityException("Item doesn't exist");
