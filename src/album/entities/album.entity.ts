@@ -17,8 +17,7 @@ export class Album {
   name: string;
 
   @IsInt()
-  @IsOptional()
-  year?: number;
+  year: number;
 
   @IsString()
   @IsUUID()

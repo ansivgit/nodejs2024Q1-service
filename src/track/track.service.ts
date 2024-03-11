@@ -20,7 +20,7 @@ export class TrackService {
       entity.albumId = null;
     }
 
-    this.db.albums.push(entity);
+    this.db.tracks.push(entity);
     return entity;
   }
 

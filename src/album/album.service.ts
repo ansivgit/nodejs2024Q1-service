@@ -58,6 +58,11 @@ export class AlbumService {
 
     this.db.albums.splice(entityIndex, 1);
 
+    const albumTracks = this.db.tracks.filter(
+      (track) => track.albumId === entity.id,
+    );
+    albumTracks.forEach((track) => (track.albumId = null));
+
     console.log(`This action removes a #${id} album`);
   }
 }
