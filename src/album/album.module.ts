@@ -7,5 +7,6 @@ import { DbModule } from 'src/db/db.module';
   imports: [DbModule],
   controllers: [AlbumController],
   providers: [AlbumService],
+  exports: [AlbumService],
 })
 export class AlbumModule {}

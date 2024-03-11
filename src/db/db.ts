@@ -11,4 +11,5 @@ export class DataBase {
   public users: User[] = [testData.user];
   public albums: Album[] = [testData.album];
   public tracks: Track[] = [testData.track];
+  public favs: Record<string, string[]> = testData.favs;
 }
