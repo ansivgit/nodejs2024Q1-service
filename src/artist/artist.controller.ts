@@ -9,6 +9,7 @@ import {
   HttpCode,
   ParseUUIDPipe,
 } from '@nestjs/common';
+
 import { ArtistService } from './artist.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';

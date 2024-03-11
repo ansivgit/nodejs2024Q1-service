@@ -9,6 +9,5 @@ export class CreateArtistDto {
 
   @ApiProperty()
   @IsBoolean()
-  @IsNotEmpty()
   grammy: boolean;
 }

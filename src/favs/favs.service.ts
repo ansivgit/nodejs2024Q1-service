@@ -17,29 +17,32 @@ import { Fav } from './entities/fav.entity';
 
 @Injectable()
 export class FavsService {
-  constructor(private readonly db: DataBase) {}
-
-  @Inject(AlbumService)
-  private albumService: AlbumService;
-  @Inject(ArtistService)
-  private artistService: ArtistService;
-  @Inject(TrackService)
-  private trackService: TrackService;
+  constructor(
+    private readonly db: DataBase,
+    private readonly artistService: ArtistService,
+    private readonly albumService: AlbumService,
+    private readonly trackService: TrackService,
+  ) {}
 
   findAll(): Fav {
     const albums: Album[] = this.db.favs.albums.map((albumId) =>
       this.albumService.findOne(albumId),
     );
 
-    const artists = this.db.favs.artists.map((artistId) =>
+    const artists: Artist[] = this.db.favs.artists.map((artistId) =>
       this.artistService.findOne(artistId),
     );
 
-    const tracks = this.db.favs.tracks.map((trackId) =>
+    const tracks: Track[] = this.db.favs.tracks.map((trackId) =>
       this.trackService.findOne(trackId),
     );
 
-    return { albums, artists, tracks };
+    const res: Fav = {
+      artists: artists,
+      albums: albums,
+      tracks: tracks,
+    };
+    return res;
   }
 
   createAlbum(id: string): Album {

@@ -7,9 +7,9 @@ import { testData } from './testData';
 
 @Injectable()
 export class DataBase {
+  public favs: Record<string, string[]> = testData.favs;
   public artists: Artist[] = [testData.artist];
   public users: User[] = [testData.user];
   public albums: Album[] = [testData.album];
   public tracks: Track[] = [testData.track];
-  public favs: Record<string, string[]> = testData.favs;
 }
