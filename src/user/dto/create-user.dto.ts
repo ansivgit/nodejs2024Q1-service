@@ -1,14 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { OmitType } from '@nestjs/mapped-types';
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
-import { User } from '../entities/user.entity';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateUserDto extends OmitType(User, [
-  'id',
-  'version',
-  'createAt',
-  'updateAt',
-] as const) {
+export class CreateUserDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -16,6 +9,6 @@ export class CreateUserDto extends OmitType(User, [
 
   @ApiProperty()
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   password: string;
 }

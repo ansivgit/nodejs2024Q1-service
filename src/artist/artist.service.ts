@@ -11,6 +11,10 @@ export class ArtistService {
 
   create(createArtistDto: CreateArtistDto): Artist {
     const entity = new Artist({ id: v4(), ...createArtistDto });
+
+    if (!createArtistDto?.grammy) {
+      entity.grammy = false;
+    }
     this.db.artists.push(entity);
 
     return entity;
@@ -60,6 +64,11 @@ export class ArtistService {
       (track) => track.artistId === entity.id,
     );
     artistTracks.forEach((track) => (track.artistId = null));
+
+    const artistAlbums = this.db.albums.filter(
+      (album) => album.artistId === entity.id,
+    );
+    artistAlbums.forEach((album) => (album.artistId = null));
 
     console.log(`This action removes a #${id} artist`);
   }

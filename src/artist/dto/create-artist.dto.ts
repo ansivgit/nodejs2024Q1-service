@@ -1,9 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { OmitType } from '@nestjs/mapped-types';
-import { IsBoolean, IsNotEmpty, IsString, IsOptional } from 'class-validator';
-import { Artist } from '../entities/artist.entity';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateArtistDto extends OmitType(Artist, ['id'] as const) {
+export class CreateArtistDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -11,6 +9,6 @@ export class CreateArtistDto extends OmitType(Artist, ['id'] as const) {
 
   @ApiProperty()
   @IsBoolean()
-  @IsOptional()
-  grammy?: boolean;
+  @IsNotEmpty()
+  grammy: boolean;
 }

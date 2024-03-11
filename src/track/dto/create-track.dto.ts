@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { OmitType } from '@nestjs/mapped-types';
 import {
   IsInt,
   IsNotEmpty,
@@ -9,7 +8,7 @@ import {
 } from 'class-validator';
 import { Track } from '../entities/track.entity';
 
-export class CreateTrackDto extends OmitType(Track, ['id'] as const) {
+export class CreateTrackDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -31,4 +30,8 @@ export class CreateTrackDto extends OmitType(Track, ['id'] as const) {
   @IsInt()
   @IsNotEmpty()
   duration: number;
+
+  constructor(track: Track) {
+    Object.assign(this, track);
+  }
 }

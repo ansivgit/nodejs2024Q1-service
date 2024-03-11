@@ -18,19 +18,11 @@ export class UserService {
   create(createUserDto: CreateUserDto): Omit<User, 'password'> {
     const { login, password } = createUserDto;
 
-    const existingUser: User | undefined = this.db.users.find(
-      (person) => person.login === login,
-    );
-
-    if (existingUser) {
-      throw new ConflictException('User exist');
-    }
-
     const userInfo = {
       id: v4(),
       version: 1,
-      createAt: Date.now(),
-      updateAt: Date.now(),
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
     };
 
     const entity = new User({
@@ -73,13 +65,17 @@ export class UserService {
     );
     const { oldPassword, newPassword } = updateUserDto;
 
+    if (!entity) {
+      throw new NotFoundException('Person not found');
+    }
+
     if (entity?.password !== oldPassword) {
       throw new ForbiddenException('Incorrect password');
     }
 
     entity.password = newPassword;
     entity.version += 1;
-    entity.updateAt = Date.now();
+    entity.updatedAt = Date.now();
 
     const omitEntity: Omit<User, 'password'> = getOmitObj(entity, 'password');
     return omitEntity;

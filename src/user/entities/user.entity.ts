@@ -17,7 +17,7 @@ export class User {
   login: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   password: string;
 
   @IsInt()
@@ -26,11 +26,11 @@ export class User {
 
   @IsInt()
   @IsOptional()
-  createAt: number;
+  createdAt: number;
 
   @IsInt()
   @IsOptional()
-  updateAt: number;
+  updatedAt: number;
 
   constructor(user: User) {
     Object.assign(this, user);

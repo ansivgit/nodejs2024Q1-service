@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { OmitType } from '@nestjs/mapped-types';
 import {
   IsInt,
   IsNotEmpty,
@@ -9,9 +8,8 @@ import {
   Min,
   Max,
 } from 'class-validator';
-import { Album } from '../entities/album.entity';
 
-export class CreateAlbumDto extends OmitType(Album, ['id'] as const) {
+export class CreateAlbumDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -21,12 +19,11 @@ export class CreateAlbumDto extends OmitType(Album, ['id'] as const) {
   @IsInt()
   @Min(1900)
   @Max(2024)
-  @IsOptional()
-  year?: number;
+  year: number;
 
   @ApiProperty()
   @IsString()
   @IsUUID()
   @IsOptional()
-  artistId?: string;
+  artistId?: string | null;
 }
