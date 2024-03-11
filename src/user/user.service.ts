@@ -73,7 +73,7 @@ export class UserService {
     );
     const { oldPassword, newPassword } = updateUserDto;
 
-    if (entity.password !== oldPassword) {
+    if (entity?.password !== oldPassword) {
       throw new ForbiddenException('Incorrect password');
     }
 

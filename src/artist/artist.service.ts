@@ -48,13 +48,18 @@ export class ArtistService {
   }
 
   remove(id: string): void {
-    const entity = this.findOne(id);
+    const entity: Artist = this.findOne(id);
 
     const entityIndex = this.db.artists.findIndex(
       (person) => person.id === entity.id,
     );
 
     this.db.artists.splice(entityIndex, 1);
+
+    const artistTracks = this.db.tracks.filter(
+      (track) => track.artistId === entity.id,
+    );
+    artistTracks.forEach((track) => (track.artistId = null));
 
     console.log(`This action removes a #${id} artist`);
   }
